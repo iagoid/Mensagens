@@ -128,14 +128,29 @@ class MensagemController extends Controller
     }
 
 
+   /**
+     * Delete the specified resource from storage.
+     *
+     * @param  \App\mensagens  $mensagem
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $obj_Mensagem = mensagens::find($id);
+        return view ('mensagens.delete',['mensagem' => $obj_Mensagem]);
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\mensagens  $mensagem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mensagem $mensagem)
+    public function destroy($id)
     {
-        //
+        $obj_Mensagem = mensagens::findOrFail($id);
+        $obj_Mensagem->delete($id);
+        return redirect('/mensagens')->with('sucess','Mensagem EXCLUIDA COM SUCESSO!!!');
     }
 }

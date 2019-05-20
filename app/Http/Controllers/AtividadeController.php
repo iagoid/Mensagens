@@ -130,6 +130,18 @@ class AtividadeController extends Controller
         return redirect('/atividades')->with('success', 'Atividade editada com sucesso!!');
     }
 
+    /**
+     * Delete the specified resource from storage.
+     *
+     * @param  \App\Atividade  $atividade
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $obj_Atividade = Atividade::find($id);
+        return view ('atividade.delete',['atividade' => $obj_Atividade]);
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -137,8 +149,10 @@ class AtividadeController extends Controller
      * @param  \App\Atividade  $atividade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Atividade $atividade)
+    public function destroy($id)
     {
-        //
+        $obj_Atividade = Atividade::findOrFail($id);
+        $obj_Atividade->delete($id);
+        return redirect('/atividades')->with('sucess','ATIVIDADE EXCLUIDA COM SUCESSO!!!');
     }
 }
